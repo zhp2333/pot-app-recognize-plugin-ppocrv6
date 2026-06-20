@@ -1,0 +1,52 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions: write-all
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Download ONNX Models
+        run: |
+          mkdir models
+          curl -L -o models/ch_PP-OCRv6_small_det.onnx "https://modelscope.cn/models/PaddlePaddle/PP-OCRv6_small_det_onnx/resolve/master/inference.onnx"
+          curl -L -o models/ch_PP-OCRv6_small_rec.onnx "https://modelscope.cn/models/PaddlePaddle/PP-OCRv6_small_rec_onnx/resolve/master/inference.onnx"
+          # cls model from rapidocr-onnxruntime package
+          pip install rapidocr-onnxruntime
+          python -c "import rapidocr_onnxruntime,os,shutil; pkg=os.path.dirname(rapidocr_onnxruntime.__file__); shutil.copy(os.path.join(pkg,'models','ch_ppocr_mobile_v2.0_cls_infer.onnx'),'models/ch_PP-LCNet_x0_25_textline_ori_cls.onnx')"
+
+      - name: Publish
+        run: >
+          dotnet publish -c Release --self-contained true -r win-x64
+          -p:PublishSingleFile=false -p:PublishTrimmed=false -o publish
+
+      - name: Package Plugin
+        shell: pwsh
+        run: |
+          $id = (Get-Content info.json | ConvertFrom-Json).id
+          mkdir $id
+          cp info.json $id/
+          cp icon.png $id/
+          cp main.js $id/
+          cp -r publish/* $id/
+          cp models/*.onnx $id/
+          Compress-Archive -Path $id/* -DestinationPath "$id.potext"
+          echo "POTEXT=$id.potext" >> $env:GITHUB_ENV
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.potext"
