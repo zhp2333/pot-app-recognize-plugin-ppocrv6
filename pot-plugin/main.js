@@ -1,15 +1,18 @@
 async function recognize(_base64, _lang, options) {
-    const { utils } = options;
+    const { config, utils } = options;
     const { run, cacheDir, pluginDir } = utils;
+
+    // Read model size from plugin config (default: small)
+    const modelSize = config.model_size || "small";
 
     // Path to the screenshot that Pot captures
     const screenshot = `${cacheDir}/pot_screenshot_cut.png`;
 
-    // PPOCRv6.exe is bundled alongside this plugin
-    // Usage: PPOCRv6.exe <image_path> [tiny|small|medium]
+    // Run the self-contained OCR engine
+    // Usage: pot_ocr.exe <image_path> [tiny|small|medium]
     const result = await run(
-        `${pluginDir}/PPOCRv6.exe`,
-        [screenshot, "small"]
+        `${pluginDir}/pot_ocr.exe`,
+        [screenshot, modelSize]
     );
 
     if (result.status !== 0) {

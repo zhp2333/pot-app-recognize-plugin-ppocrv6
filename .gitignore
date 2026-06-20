@@ -5,3 +5,4 @@ test/
 *.potext
 pot-plugin/dist/
 models/*.onnx
+pot-plugin/pkg/

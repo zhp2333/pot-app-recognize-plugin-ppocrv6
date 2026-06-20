@@ -1,11 +1,15 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using RapidOCRSharpOnnx;
 using RapidOCRSharpOnnx.Configurations;
 using RapidOCRSharpOnnx.Models;
 using RapidOCRSharpOnnx.Providers;
 using RapidOCRSharpOnnx.Utils;
 
-// Usage: PPOCRv6.exe <image_path> [tiny|small|medium]
+// Force UTF-8 output so Pot receives Chinese characters correctly
+Console.OutputEncoding = Encoding.UTF8;
+
+// Usage: pot_ocr.exe <image_path> [tiny|small|medium]
 var imagePath = args.Length > 0 ? args[0] : null;
 var modelSize = args.Length > 1 ? args[1].ToLower() : "small";
 

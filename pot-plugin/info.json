@@ -3,14 +3,30 @@
     "plugin_type": "recognize",
     "icon": "icon.png",
     "display": "PP-OCRv6 (ONNX)",
-    "homepage": "https://github.com/PaddlePaddle/PaddleOCR",
-    "needs": [],
+    "homepage": "https://github.com/zhp2333/pot-app-recognize-plugin-ppocrv6",
+    "needs": [
+        {
+            "key": "model_size",
+            "display": "模型大小",
+            "type": "select",
+            "options": { "small": "Small (30MB, 推荐)", "tiny": "Tiny (6MB, 极速)", "medium": "Medium (135MB, 最高精度)" }
+        }
+    ],
     "language": {
         "auto": "ch",
         "zh_cn": "ch",
         "zh_tw": "ch",
         "en": "en",
         "ja": "ja",
-        "ko": "ko"
+        "ko": "ko",
+        "fr": "latin",
+        "es": "latin",
+        "de": "latin",
+        "it": "latin",
+        "pt_pt": "latin",
+        "pt_br": "latin",
+        "ru": "cyrillic",
+        "ar": "arabic",
+        "hi": "devanagari"
     }
 }
