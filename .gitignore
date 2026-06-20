@@ -1,0 +1,7 @@
+bin/
+obj/
+publish/
+test/
+*.potext
+pot-plugin/dist/
+models/*.onnx

@@ -1,0 +1,16 @@
+{
+    "id": "plugin.com.hermes.ppocrv6",
+    "plugin_type": "recognize",
+    "icon": "icon.png",
+    "display": "PP-OCRv6 (ONNX)",
+    "homepage": "https://github.com/PaddlePaddle/PaddleOCR",
+    "needs": [],
+    "language": {
+        "auto": "ch",
+        "zh_cn": "ch",
+        "zh_tw": "ch",
+        "en": "en",
+        "ja": "ja",
+        "ko": "ko"
+    }
+}
