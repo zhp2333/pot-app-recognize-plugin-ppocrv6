@@ -9,7 +9,7 @@
             "key": "model_size",
             "display": "模型大小",
             "type": "select",
-            "options": { "small": "Small (30MB, 推荐)", "tiny": "Tiny (6MB, 极速)" }
+            "options": { "small": "Small (30MB, 推荐)", "tiny": "Tiny (6MB, 极速)", "medium": "Medium (135MB, 最高精度)" }
         }
     ],
     "language": {
